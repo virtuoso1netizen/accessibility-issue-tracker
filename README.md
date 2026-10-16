@@ -78,6 +78,17 @@ npm test
 
 The current tests check that an invalid status transition is rejected, one user cannot read another user's issue, and invalid page URLs are rejected.
 
+## Screenshots
+
+### Dashboard
+![Accessibility Issue Tracker dashboard](docs/screenshots/dashboard.png)
+
+### Create an Issue
+![Create accessibility issue form](docs/screenshots/create-issue.png)
+
+### Issue Details
+![Issue details and status history](docs/screenshots/issue-details.png)
+
 ## Project documentation
 
 [Architecture](ARCHITECTURE.md) explains the current app structure and outlines possible production changes.
