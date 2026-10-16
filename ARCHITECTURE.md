@@ -23,12 +23,12 @@ The local request path is:
 
 For a production deployment, the design could add the following components:
 
-- **Static hosting or a CDN** to serve frontend files.
-- **A real authentication and session layer** to establish user identity.
-- **PostgreSQL** in place of SQLite for a larger, concurrent service.
-- **Object storage** for uploaded screenshots, with file metadata stored in the database.
-- **A queue, worker, and email provider** for sending notifications about Critical issues.
-- **A cache**, if measurements show that it would help. Cached responses must not bypass authorization.
+**Static hosting or a CDN** to serve frontend files.
+**A real authentication and session layer** to establish user identity.
+**PostgreSQL** in place of SQLite for a larger, concurrent service.
+**Object storage** for uploaded screenshots, with file metadata stored in the database.
+**A queue, worker, and email provider** for sending notifications about Critical issues.
+**A cache**, if measurements show that it would help. Cached responses must not bypass authorization.
 
 These are future design options and are not part of the local app.
 
@@ -42,39 +42,39 @@ The database has three tables.
 
 ### `users`
 
-- `id` — primary key
-- `username` — username for the demo account
+`id` — primary key
+`username` — username for the demo account
 
 ### `issues`
 
-- `id` — primary key
-- `user_id` — foreign key to `users.id`
-- `title` — issue title
-- `description` — issue description
-- `page_url` — URL of the page with the issue
-- `wcag_criterion` — related WCAG criterion, if provided
-- `severity` — `Minor`, `Moderate`, `Serious`, or `Critical`
-- `status` — `Open`, `In Progress`, or `Resolved`
-- `created_at` — creation time
-- `updated_at` — last update time
+`id` — primary key
+`user_id` — foreign key to `users.id`
+`title` — issue title
+`description` — issue description
+`page_url` — URL of the page with the issue
+`wcag_criterion` — related WCAG criterion, if provided
+`severity` — `Minor`, `Moderate`, `Serious`, or `Critical`
+`status` — `Open`, `In Progress`, or `Resolved`
+`created_at` — creation time
+`updated_at` — last update time
 
 ### `status_history`
 
-- `id` — primary key
-- `issue_id` — foreign key to `issues.id`
-- `changed_by` — foreign key to `users.id`
-- `old_status` — previous status; empty for the initial history entry
-- `new_status` — status after the change
-- `changed_at` — time of the change
+`id` — primary key
+`issue_id` — foreign key to `issues.id`
+`changed_by` — foreign key to `users.id`
+`old_status` — previous status; empty for the initial history entry
+`new_status` — status after the change
+`changed_at` — time of the change
 
 A user can own multiple issues. An issue can have multiple status-history entries, and each history entry records which user made the change. Creating an issue also creates an initial history entry for its `Open` status.
 
 The local schema includes indexes for common owner-scoped queries and for reading an issue's status history in time order:
 
-- `issues(user_id, created_at DESC)`
-- `issues(user_id, status)`
-- `issues(user_id, severity)`
-- `status_history(issue_id, changed_at)`
+`issues(user_id, created_at DESC)`
+`issues(user_id, status)`
+`issues(user_id, severity)`
+`status_history(issue_id, changed_at)`
 
 ## 4. Creating an issue
 
@@ -92,10 +92,10 @@ The frontend sends a request to `PATCH /api/issues/:id/status`. The API checks t
 
 The permitted transitions are:
 
-- `Open` → `In Progress`
-- `In Progress` → `Open`
-- `In Progress` → `Resolved`
-- `Resolved` → `Open`
+`Open` → `In Progress`
+`In Progress` → `Open`
+`In Progress` → `Resolved`
+`Resolved` → `Open`
 
 For example, changing an issue directly from `Open` to `Resolved` is rejected. The history table records the status changes.
 
