@@ -4,8 +4,8 @@ The Accessibility Issue Tracker is a small web app for recording and managing ac
 
 ## Requirements
 
-- Node.js 20 LTS or a compatible supported version
-- npm
+Node.js 20 LTS or a compatible supported version
+npm
 
 ## Run the app locally
 
