@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accessibility Issue Tracker</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="brand">Access<span>Track</span></div>
+    <div id="session-area" aria-live="polite"></div>
+  </header>
+  <main id="main" tabindex="-1">
+    <section id="login-view" class="panel narrow">
+      <p class="eyebrow">ACCESSIBILITY AUDIT WORKSPACE</p>
+      <h1>Accessibility Issue Tracker</h1>
+      <p>Record, track, and resolve accessibility issues found on websites.</p>
+      <label for="demo-user">Choose a demo account</label>
+      <select id="demo-user">
+        <option value="1">Alice (Demo User 1)</option>
+        <option value="2">Bob (Demo User 2)</option>
+      </select>
+      <button id="login-button" class="primary">Sign in</button>
+      <p class="hint">This local demo uses seeded accounts and does not require a password.</p>
+    </section>
+
+    <section id="app-view" hidden>
+      <div class="page-heading">
+        <div><p class="eyebrow">YOUR WORKSPACE</p><h1 id="page-heading">My issues</h1></div>
+        <button id="new-issue-button" class="primary">+ Create issue</button>
+      </div>
+      <div class="stats" aria-label="Issue summary">
+        <article class="stat"><span>Total issues</span><strong id="total-count">0</strong></article>
+        <article class="stat"><span>Open</span><strong id="open-count">0</strong></article>
+        <article class="stat"><span>In progress</span><strong id="progress-count">0</strong></article>
+        <article class="stat"><span>Resolved</span><strong id="resolved-count">0</strong></article>
+      </div>
+      <section class="panel">
+        <h2>My accessibility issues</h2>
+        <div class="filters">
+          <div><label for="status-filter">Filter by status</label>
+            <select id="status-filter"><option value="">All statuses</option><option>Open</option><option>In Progress</option><option>Resolved</option></select></div>
+          <div><label for="severity-filter">Filter by severity</label>
+            <select id="severity-filter"><option value="">All severities</option><option>Minor</option><option>Moderate</option><option>Serious</option><option>Critical</option></select></div>
+          <button id="clear-filters" class="secondary">Clear filters</button>
+        </div>
+        <div id="issue-table-wrap"></div>
+      </section>
+      <section id="form-panel" class="panel" hidden>
+        <h2 id="form-heading">Create an issue</h2>
+        <p>Fields marked “required” must be completed.</p>
+        <div id="form-error-summary" class="error-summary" tabindex="-1" hidden></div>
+        <form id="issue-form" novalidate>
+          <input type="hidden" id="issue-id">
+          <div class="field"><label for="title">Issue title (required)</label><input id="title" name="title" required maxlength="160" aria-describedby="title-error"><p id="title-error" class="field-error"></p></div>
+          <div class="field"><label for="description">Description</label><textarea id="description" name="description" rows="3"></textarea></div>
+          <div class="field"><label for="page-url">Page URL (required)</label><input id="page-url" name="page_url" type="url" required placeholder="https://example.com" aria-describedby="url-error"><p id="url-error" class="field-error"></p></div>
+          <div class="field"><label for="wcag">WCAG criterion</label>
+            <input id="wcag" name="wcag_criterion" list="wcag-options" placeholder="Choose or type a criterion">
+            <datalist id="wcag-options"><option value="1.1.1 Non-text Content"><option value="1.3.1 Info and Relationships"><option value="2.1.1 Keyboard"><option value="2.4.7 Focus Visible"><option value="4.1.2 Name, Role, Value"></datalist>
+          </div>
+          <div class="field"><label for="severity">Severity (required)</label><select id="severity" name="severity" required><option value="">Choose severity</option><option>Minor</option><option>Moderate</option><option>Serious</option><option>Critical</option></select><p id="severity-error" class="field-error"></p></div>
+          <div class="actions"><button type="submit" class="primary">Save issue</button><button type="button" id="cancel-form" class="secondary">Cancel</button></div>
+        </form>
+      </section>
+      <section id="detail-panel" class="panel" hidden>
+        <button id="back-button" class="secondary">← Back to issues</button>
+        <div id="issue-detail"></div>
+      </section>
+      <p id="toast" role="status" aria-live="polite" class="toast"></p>
+    </section>
+  </main>
+  <footer><p>Local demo project · Built with accessibility in mind</p></footer>
+</body>
+</html>
