@@ -2,6 +2,18 @@
 
 The Accessibility Issue Tracker is a small web app for recording and managing accessibility issues found on websites. It has a browser-based interface, an Express API, and a SQLite database.
 
+## Live Demo
+
+**Live Website:** https://accessibility-issue-tracker.onrender.com/
+
+## Features
+- Create and manage accessibility issues
+- Categorize issues by severity
+- Track issue status and history
+- Filter issues by status and severity
+- Validate issue details
+- Store issues in SQLite
+- REST API built with Node.js and Express
 ## Requirements
 
 Node.js 20 LTS or a compatible supported version
